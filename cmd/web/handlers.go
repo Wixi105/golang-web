@@ -10,6 +10,8 @@ import (
 
 
 func homeHandler(w http.ResponseWriter, r *http.Request) {
+	// will return a 404 not found error if the page does not exactly match 
+	// the "/" pattern
 	if r.URL.Path != "/" {
 		http.NotFound(w, r)
 		return
