@@ -12,6 +12,8 @@ type application struct {
 	infoLog *log.Logger
 }
 
+
+
 func main() {
 
 	// address flag. ("flagName", "default value", "name for identification")
@@ -26,10 +28,17 @@ func main() {
 	infoLog := log.New(os.Stdout, "INFO\t", log.Ldate|log.Ltime)
 	errorLog := log.New(os.Stderr, "ERROR\t", log.Ldate|log.Ltime|log.Lshortfile)
 
+
+	// Initialize a new instance of the application containing dependencies
+	app := &application{
+		errorLog: errorLog,
+		infoLog: infoLog,
+	}
+
 	mux := http.NewServeMux()
-	mux.HandleFunc("/", homeHandler)
-	mux.HandleFunc("/snippet", showSnippetHandler)
-	mux.HandleFunc("/snippet/create", createSnippetHandler)
+	mux.HandleFunc("/", app.homeHandler)
+	mux.HandleFunc("/snippet", app.showSnippetHandler)
+	mux.HandleFunc("/snippet/create", app.createSnippetHandler)
 
 	// file server that serves content from ui/static directory.
 	fileServer := http.FileServer(http.Dir("./ui/static/"))
