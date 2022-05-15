@@ -35,15 +35,6 @@ func main() {
 		infoLog: infoLog,
 	}
 
-	mux := http.NewServeMux()
-	mux.HandleFunc("/", app.homeHandler)
-	mux.HandleFunc("/snippet", app.showSnippetHandler)
-	mux.HandleFunc("/snippet/create", app.createSnippetHandler)
-
-	// file server that serves content from ui/static directory.
-	fileServer := http.FileServer(http.Dir("./ui/static/"))
-	mux.Handle("/static/", http.StripPrefix("/static", fileServer))
-
 
 	/*
 	Initialize a new http.Server struct and set Addr and handler fields 
@@ -54,7 +45,7 @@ func main() {
 
 	srv := &http.Server{
 		Addr:     *addr,
-		Handler:  mux,
+		Handler:  app.routes(),
 		ErrorLog: errorLog,
 	}
 
