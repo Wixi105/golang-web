@@ -7,6 +7,11 @@ import (
 	"os"
 )
 
+type application struct {
+	errorLog *log.Logger
+	infoLog *log.Logger
+}
+
 func main() {
 
 	// address flag. ("flagName", "default value", "name for identification")
@@ -37,7 +42,7 @@ func main() {
 	the ErrorLog field so that the server now uses the custom errorLog logger in
 	the event of any problems.
 	*/
-	
+
 	srv := &http.Server{
 		Addr:     *addr,
 		Handler:  mux,

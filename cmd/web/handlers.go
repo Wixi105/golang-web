@@ -8,9 +8,8 @@ import (
 	"strconv"
 )
 
-
-func homeHandler(w http.ResponseWriter, r *http.Request) {
-	// will return a 404 not found error if the page does not exactly match 
+func (app *application) homeHandler(w http.ResponseWriter, r *http.Request) {
+	// will return a 404 not found error if the page does not exactly match
 	// the "/" pattern
 	if r.URL.Path != "/" {
 		http.NotFound(w, r)
@@ -45,8 +44,6 @@ func homeHandler(w http.ResponseWriter, r *http.Request) {
 	// w.Write([]byte("Hello from Snippetbox"))
 }
 
-
-
 // ================================= showSnippetHandler Start ==========================================
 
 func showSnippetHandler(w http.ResponseWriter, r *http.Request) {
@@ -60,9 +57,6 @@ func showSnippetHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 // ================================= showSnippetHandler End ==========================================
-
-
-
 
 func createSnippetHandler(w http.ResponseWriter, r *http.Request) {
 	if r.Method != http.MethodPost {
